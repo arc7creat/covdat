@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Covid Stats App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><style>@media print {#ghostery-purple-box {display:none !important}}</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+    
+    <style> .main{min-height:86vh} </style>
+    <style>    body {
+    background-image: url('https://assets.codepen.io/172088/internal/screenshots/pens/kIfto.default.png?fit=cover&format=auto&ha=true&height=720&quality=75&v=2&version=1412684243&width=1279');
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+    }
+    </style>
+    
+</head>
+    <body style = "background-color:NavajoWhite" >
+        <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand mr-3" href="/">
+            
+            <span class="mt-2 ml-2">COVID STATS</span>
+        </a>
+        <a class="nav-item btn btn-secondary ml-3" href="/">
+            Home
+        </a>
+        </nav>
+        <div class="main">
+    {% block content%}
+
+    {% endblock %}
+        </div>
+            <footer class="navbar navbar-dark bg-dark mt-3 pt-3">
+            <div class="container d-flex justify-content-between align-items-center">
+            <span class="text-muted float-bottom"><em>©Rights Reserved</em></span>
+            <span class="text-muted float-bottom"><em>Developed by - <strong>Arnav Malik®</strong></em></span>
+            </div>
+            </footer>
+            <div class="betternet-wrapper"></div>
+</body>
+</html>

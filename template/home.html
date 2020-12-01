@@ -1,0 +1,87 @@
+{% extends 'base.html'%} {% block content%}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+<div class="container-fluid">
+  <div class="card text-white bg-warning mb-3 mt-3">
+    <div class="card-body">
+      <h2>Covid Current Infection : {{newposit}}</h2>
+      <h2>Covid Infection Worlwide till August : {{posit}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-5">
+      <div class="form-group col-sm-10">
+        <label for="country"><strong>Select Country</strong></label>
+        <select
+          class="form-control"
+          id="country"
+          ONCHANGE="location = this.selectedIndex !== 0 ? this.options[this.selectedIndex].value : '/';"
+        >
+          <option selected>Selected Coutries</option>
+          <option value="/us.html">USA</option>
+          <option value="/india.html">India</option>
+          <option value="/brazil.html">Brazil</option>
+          <option value="/singapore.html">Singapore</option>
+        </select>
+      </div>
+      <div class="card text-white bg-warning">
+      <div class="card-body">
+          <p class="card-text">The purpose of this research is to analyze, correlate and provide insights on COVID-19 spread and weather effects on it. Further, correlation will provide understanding to the hypothesis that will summer effect virus spread. The study will be focused on weather conditions and virus spread from May-July.<br>
+          <br>Places Selected---<br>
+          1. Houston,Texas,USA<br>
+          2. New Delhi, India <br>
+          3. Rio De Janeiro,Brazil <br>
+          4. Singapore(It's near Equator) <br> You can be a part of this analysis too!!</p>
+    </div></div>
+    </div>
+      {% if showMap == 'True' %}
+      <canvas
+        class="col-sm-6"
+        id="myChart"></canvas>
+      {% endif %}
+    </div>
+  </div>
+</div>
+    
+      <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var chart = new Chart(ctx, {
+          // The type of chart we want to create
+          type: 'bar',
+
+          // The data for our dataset
+          data: {
+              labels: {{countryname|safe}},
+              datasets: [{
+                  label: 'Number of Confirmed Cases',
+                  backgroundColor: 'rgb(255, 99, 132)',
+                  borderColor: 'rgb(255, 99, 132)',
+                  data: {{barplotval|safe}}
+              }]
+          },
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+}}
+        });
+      </script>
+
+      {% endblock%}
+    </div>
+  </div>
+</div>

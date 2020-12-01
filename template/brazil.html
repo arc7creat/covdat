@@ -1,0 +1,300 @@
+{% extends 'base.html'%}
+
+{% block content%}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+
+    <div class = "container-fluid">
+    <div class="card text-white bg-warning mb-3 mt-3">
+    <div class="card-body">
+        <h1> Brazil current infection rate: {{iposit}} </h1>
+        <h2> Weather data and Positive Cases Correlation of Rio de Janeiro,Brazil </h2>
+    </div>
+    </div>
+    
+    <div class = "row mt-3" >
+    <canvas class = "col-4"id="mybratempChart" style="width: 100px; height:400px;"></canvas>
+    <canvas class = "col-4"id="mybrahumChart" style="width: 100px; height:400px;"></canvas>
+    <canvas class = "col-4"id="mybrawinChart" style="width: 100px; height:400px;"></canvas>
+    </div>
+    <div class = "row" >
+    <canvas class = "col-4"id="bratemphumcasesChart" style="width: 100px; height:400px;"></canvas>
+    <canvas class = "col-4"id="brawindhumcasesChart" style="width: 100px; height:400px;"></canvas>
+    <canvas class = "col-4"id="brawindtempcasesChart" style="width: 100px; height:400px;"></canvas>
+    </div>
+    </div>
+   
+
+
+<script>
+        var ctx = document.getElementById('mybratempChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: {{weather_bradate|safe}},
+                datasets: [{
+                    label: 'Temperature(%)',
+                    backgroundColor: 'orange',
+                    borderColor: 'light orange',
+                    data: {{weather_bratemp|safe}}
+                }]
+            },
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+                     
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }}
+    });
+</script>
+
+<script>
+        var ctx = document.getElementById('mybrahumChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: {{weather_bradate|safe}},
+                datasets: [{
+                    label: 'Humidity (%)',
+                    backgroundColor: 'blue',
+                    borderColor: 'light blue',
+                    data: {{weather_brahum|safe}}
+                }]
+            },
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }}
+    });
+</script>
+
+<script>
+        var ctx = document.getElementById('mybrawinChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'line',
+
+            // The data for our dataset
+            data: {
+                labels: {{weather_bradate|safe}},
+                datasets: [{
+                    label: 'Wind Speed(mph)',
+                    backgroundColor: 'yellow',
+                    borderColor: 'light yellow',
+                    data: {{weathr_brawin|safe}}
+                }]
+            },
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }}
+    });
+</script>
+
+<script>
+        var ctx = document.getElementById('bratemphumcasesChart').getContext('2d');
+        var dataX = {{weather_brahum|safe}};
+        var dataY = {{cthw_case|safe}};
+        var dataR = {{weather_bratemp|safe}};
+
+        var chartData = [];
+        dataX.map((l, i) => {
+            chartData.push({
+                x: dataX[i],
+                y: dataY[i],
+                v: dataR[i]
+            })
+        })
+        // For a bubble chart
+        
+        const loadCountryBubbleData = () => new Chart(ctx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label:'Humidity-PositiveCases-Temperature',
+                    hoverBorderColor:'green',
+                    hoverBackgroundColor:'light green',
+                    borderColor: 'rgb(255, 99, 132)',
+                data: chartData
+            }]
+        } ,options: {
+            tooltips: {
+               callbacks: {
+                   label: function(tooltipItem, chartData) {
+                       rLabel = chartData.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].v;
+                       return `Humidity(${tooltipItem.xLabel}, Positive Cases ${tooltipItem.yLabel}, Temperature${rLabel})`;
+                   }
+               }
+           },
+
+          // Configuration options go here
+          scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }
+   } 
+        });
+    loadCountryBubbleData();
+</script>
+
+<script>
+        var ctx = document.getElementById('brawindhumcasesChart').getContext('2d');
+        var dataX = {{weather_brahum|safe}};
+        var dataY = {{cthw_case|safe}};
+        var dataR = {{weathr_brawin|safe}};
+
+        var chartData = [];
+        dataX.map((r, i) => {
+            chartData.push({
+                x: dataX[i],
+                y: dataY[i],
+                r: dataR[i]
+            })
+        })
+        // For a bubble chart
+        
+        const loadCountryBubblData = () => new Chart(ctx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label:'Humidity-PositiveCases-WindSpeed',
+                    hoverBorderColor:'green',
+                    hoverBackgroundColor:'light green',
+                    borderColor: 'rgb(255, 99, 132)',
+                data: chartData
+            }]
+        } ,
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }}
+        });
+    loadCountryBubblData();
+</script>
+
+<script>
+        var ctx = document.getElementById('brawindtempcasesChart').getContext('2d');
+        var dataX = {{weather_bratemp|safe}};
+        var dataY = {{cthw_case|safe}};
+        var dataR = {{weathr_brawin|safe}};
+
+        var chartData = [];
+        dataX.map((r, i) => {
+            chartData.push({
+                x: dataX[i],
+                y: dataY[i],
+                r: dataR[i]
+            })
+        })
+        // For a bubble chart
+        
+        const loadCountrBubbleData = () => new Chart(ctx, {
+            type: 'bubble',
+            data: {
+                datasets: [{
+                    label:'Temperature-PositiveCases-WindSpeed',
+                    hoverBorderColor:'green',
+                    hoverBackgroundColor:'light green',
+                    borderColor: 'rgb(255, 99, 132)',
+                data: chartData
+            }]
+        } ,
+
+          // Configuration options go here
+          options: {scales: {
+             xAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }],
+             yAxes: [{
+                 gridLines: {
+                     display: true,
+                     drawBorder: true,
+                     drawOnChartArea: false,
+       }
+             }]
+    }}
+        });
+    loadCountrBubbleData();
+
+</script>
+
+
+
+{% endblock%}
