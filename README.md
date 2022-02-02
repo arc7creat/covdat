@@ -43,6 +43,6 @@ Above charts shows, positive correlation in humidity whereas negative in wind sp
 Other regions were also analyzed in the paper, leading to conclusion.
 ****************************************************************************************
 
-Conclusion
+Conclusion-----
 This study explored various location effected by coronavirus and weather effects on it. It can be influenced that coronavirus was identified across the world and it was observed from papers and observation that COVID-19 spread faster in cooler regions. There wasn’t much significant effect on the coronavirus due to weather conditions, but study showed positive correlation in humidity and virus spread. 
 The study suggests proper management such as social distance, hand wash, compulsory masks to slow down the spread. Further, evident from observation that COVID-19 can diminish virus spread but other aspects has to be kept in mind to get full control on virus spread.
